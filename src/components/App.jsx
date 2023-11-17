@@ -1,24 +1,31 @@
 import React, { Component } from 'react';
-// import Feedback from './Feedback';
-
-// export const App = () => {
-
-//   return (
-//     <div>
-//       <Feedback />
-//     </div>
-//   );
-// };
+// import { nanoid } from 'nanoid';
 
 class App extends Component {
   state = {
-    good: 10,
-    neutral: 3,
-    bad: 2,
+    contacts: [],
+    filter: '',
   };
 
   render() {
-    return <div>sdcsdasd</div>;
+    return (
+      <div>
+        <form>
+          <label>
+            имя
+            <input
+              type="text"
+              name="name"
+              // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+              // pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
+              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+              required
+            />
+          </label>
+        </form>
+      </div>
+    );
   }
 }
 
