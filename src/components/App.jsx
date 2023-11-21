@@ -1,29 +1,24 @@
 import React, { Component } from 'react';
-// import { nanoid } from 'nanoid';
+import Form from './Form';
+import ContactList from './ContactList/index';
+import style from './style.module.css';
 
 class App extends Component {
   state = {
-    contacts: [],
+    contacts: ['asdsdc', 'asxasx'],
     filter: '',
+  };
+
+  formSubmitHandler = data => {
+    console.log('data', data);
   };
 
   render() {
     return (
-      <div>
-        <form>
-          <label>
-            имя
-            <input
-              type="text"
-              name="name"
-              // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              pattern="^[a-zA-Zа-яА-Я]+(([' \-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              // pattern="\+?\d{1,4}?[ .\-\s]?\(?\d{1,3}?\)?[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,4}[ .\-\s]?\d{1,9}"
-              title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-              required
-            />
-          </label>
-        </form>
+      <div className={style.wrapper}>
+        <Form onSubmitForm={this.formSubmitHandler} />
+        <h2 className={style.title}>Contacts</h2>
+        <ContactList contacts={this.state.contacts} />
       </div>
     );
   }
