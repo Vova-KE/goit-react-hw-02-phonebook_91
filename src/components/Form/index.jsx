@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
 import style from './style.module.css';
 
-class Form extends Component {
+class ContactForm extends Component {
   state = {
     name: '',
     number: '',
@@ -20,7 +20,6 @@ class Form extends Component {
   handleSubmit = event => {
     event.preventDefault();
 
-    // console.log('this.state', this.state);
     this.props.onSubmitForm(this.state);
 
     this.resetForm();
@@ -33,7 +32,6 @@ class Form extends Component {
   render() {
     return (
       <>
-        <h2 className={style.title}>Phonebook</h2>
         <form className={style.form} onSubmit={this.handleSubmit}>
           <label className={style.label} htmlFor={this.nameId}>
             Name
@@ -72,4 +70,4 @@ class Form extends Component {
   }
 }
 
-export default Form;
+export default ContactForm;

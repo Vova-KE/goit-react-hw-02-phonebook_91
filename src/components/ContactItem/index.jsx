@@ -1,7 +1,11 @@
 import React from 'react';
 
 const ContactItem = ({ contact }) => {
-  return <li>{contact}</li>;
+  return (
+    <li>
+      {contact.name}: {contact.number}
+    </li>
+  );
 };
 
 export default ContactItem;
