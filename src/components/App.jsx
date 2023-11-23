@@ -3,6 +3,7 @@ import ContactForm from './Form';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import style from './style.module.css';
+import { nanoid } from 'nanoid';
 
 class App extends Component {
   state = {
@@ -15,31 +16,58 @@ class App extends Component {
     filter: '',
   };
 
-  formSubmitHandler = data => {
-    // console.log('data', Object.entries(data));
-    console.log('data', data);
-    // const objName = Object.keys(data);
-    // const objNumber = Object.values(data);
-    // console.log('objName', objName);
-    // console.log('objNumber', objNumber);
-    // const arrData = Object.entries(data);
+  formSubmitHandler = contact => {
+    const contactAdd = {
+      id: nanoid(),
+      name: contact.name,
+      number: contact.number,
+    };
 
-    //   this.setState(prevState => ({
-    //     contacts: [...prevState.contacts[objName], objNumber],
-    //   }));
+    this.setState(({ contacts }) => ({
+      contacts: [...contacts, contactAdd],
+    }));
+  };
+
+  deleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
+
+  changeFilter = event => {
+    this.setState({ filter: event.currentTarget.value });
+  };
+
+  getVisibleContacts = () => {
+    const { filter, contacts } = this.state;
+    const normalizedFilter = filter.toLowerCase();
+
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(normalizedFilter)
+    );
   };
 
   render() {
+    const visibleContacts = this.getVisibleContacts();
+
     return (
       <div className={style.wrapper}>
         <h1 className={style.title}>Phonebook</h1>
         <ContactForm onSubmitForm={this.formSubmitHandler} />
         <h2 className={style.title}>Contacts</h2>
-        <Filter />
-        <ContactList contacts={this.state.contacts} />
+        <Filter value={this.state.filter} onChange={this.changeFilter} />
+        <ContactList
+          contacts={visibleContacts}
+          onDeleteContact={this.deleteContact}
+        />
       </div>
     );
   }
 }
 
 export default App;
+
+// if (isExist) {
+//   alert(`${name} is already in contacts.`);
+//   return;
+// }
