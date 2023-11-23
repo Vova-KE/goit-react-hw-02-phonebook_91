@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import { nanoid } from 'nanoid';
 import ContactForm from './Form';
 import ContactList from './ContactList';
 import Filter from './Filter';
 import style from './style.module.css';
-import { nanoid } from 'nanoid';
 
 class App extends Component {
   state = {
@@ -22,6 +22,16 @@ class App extends Component {
       name: contact.name,
       number: contact.number,
     };
+
+    const normalizedContactName = contactAdd.name.toLowerCase();
+    const isExist = this.state.contacts.find(contact =>
+      contact.name.toLowerCase().includes(normalizedContactName)
+    );
+
+    if (isExist) {
+      alert(`${contactAdd.name} is already in contacts.`);
+      return;
+    }
 
     this.setState(({ contacts }) => ({
       contacts: [...contacts, contactAdd],
@@ -66,8 +76,3 @@ class App extends Component {
 }
 
 export default App;
-
-// if (isExist) {
-//   alert(`${name} is already in contacts.`);
-//   return;
-// }
